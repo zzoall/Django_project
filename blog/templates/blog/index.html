@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    드디어 index에 도착했다~~~~~~
+    {# {% %} 한줄짜리 주석, 기존 html 주석쓰면 서버 오류 발생 #}
+    {% comment %}
+    여러줄
+    주석
+    입
+    니
+    다
+    {% endcomment %}
+    
+    {% for post in post_list %}<br>
+    글제목: {{ post.pk }}<br>
+    글이름: {{ post.title }}<br>
+    작성일: {{ post.created_at }}<br>
+    글내용: {{ post.created_at }}<br>
+    <h2>헷갈려요..</h2>
+    {% endfor %}
+
+    {% if count > 0 %}
+        Data Count = {{ count }}
+    {% else %}
+        No Data
+    {% endif %}
+    
+    {% for title in post %}
+    <li>{{ post.name }}</li>
+    {% endfor %}
+
+    {{ post.updated_at }}
+</body>
+</html>
