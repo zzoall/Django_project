@@ -8,5 +8,8 @@ from . import views
 # ]
 
 urlpatterns = [
-    path('', views.PostList.as_view()) # FBV를 생성
+    # path('', views.index), # FBV
+    path('', views.PostList.as_view()),  # CBV post_list.html을 기본 템플릿으로 찾게 됩니다
+    path('<int:pk>/', views.PostDetail.as_view()), # 어디출신인지 -> views, 사용할클래스-> PostDetail , 내가 만든 포스트1, 포스트2 ... 5까지 다나옴.
 ]
+

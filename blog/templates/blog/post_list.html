@@ -1,39 +1,43 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Post List</title>
+    <style>
+        .card img {
+            object-fit: cover;
+            aspect-ratio: 4 / 1; /* 가로 4, 세로1 비율 */
+        }
+    </style>
 </head>
 <body>
-    드디어 index에 도착했다~~~~~~
-    {# {% %} 한줄짜리 주석임. 기존 html 주석쓰면 서버오류발생 #}
-    {% comment %}
-    여러줄 주석
-    입
-    니
-    다
-    {% endcomment %}
-    
-    {% for post in post_list %}<br>
-    글제목: {{ post.pk }}<br>
-    글이름: {{ post.title }}<br>
-    작성일: {{ post.created_at }}<br>
-    글내용: {{ post.created_at }}<br>
-    안녕???<br>
-    {% endfor %}
+    {# 데이터를 보내는 클래스 이름이 PostList이므로 해당 클래스 이름으로 데이터가 옴 #}
+    {% for post in post_list %} 
+    <div class="card" style="width: 40rem;"> <!--14 * 40 px 크기임.-->
+        {# 포스트에 이미지 업데이트 항목 추가 필요 #}
+        {% if post.header_img %} 
+        <!-- .url : 미디어타입을 url 주소로 변환해서 출력해주는 역할 https://  ~~~  -->
+        <img src="{{ post.header_img.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="{% static 'blog/jjanggu.png' %}" class="card-img-top" alt="..."> <!-- 이미지 추가하면 서버껐다 켜야 반영됨.-->
+        {% endif %}
 
-    {% if count > 0 %}
-        Data Count = {{ count }}
-    {% else %}
-        No Data
-    {% endif %}
-    
-    {% for title in post %}
-    <li>{{ post.name }}</li>
+        <div class="card-body">
+          <h5 class="card-title">{{ post.pk }} {{ post.title }}</h5> <!-- post-pk는 번호임.-->
+          <p class="card-text">{{ post.created_at|date:"Y-m-d" }}</p>
+          <p class="card-text">{{ post.content }}</p>
+          <!-- localhost:8000/1 상대경로-->
+          <a href="{{ post.pk }}" class="btn btn-primary">상대경로 보기</a>
+          <!-- localhost:8000/blog/1 절대경로를 뽑아내는 함수를 호출 -->
+          <a href="{{ post.get_absolute_url }}" class="btn btn-primary">절대경로 보기</a>
+          
+        </div>
+      </div>    
     {% endfor %}
-
-    {{ post.updated_at }}
 </body>
 </html>

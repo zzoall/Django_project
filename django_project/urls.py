@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# django_project/urls.py에 추가
+# 이미지 업로드 필드를 위한 추가
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    path("", include('blog.urls')), # 일단 /blog/ 접속 귀찮으니까 추가
     path("admin/", admin.site.urls),
-    path("blog/", include('blog.urls')) # blog 폴더(앱)의 urls에 포함된 내용을 알려줘
+    path("blog/", include('blog.urls')),  # blog 폴더(앱)의 urls.py에 포함된 내용을 참조해줘 
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

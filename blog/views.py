@@ -1,4 +1,4 @@
-# from django.shortcuts import render
+# from django.shortcuts import render #FBV방식
 # from .models import Post
 
 # Create your views here.
@@ -31,10 +31,14 @@
 
 
 # 2) Class Based Views 방식
-from django.views.generic import ListView
+from django.views.generic import ListView #게시판형으로 데이터를 가지고 오는 클래스
+from django.views.generic.detail import DetailView
 from .models import Post
+
+class PostDetail(DetailView): # 디테일뷰를 상속받은 클래스.import 필수,  post_detail.html을 불러옴.
+    model = Post
 
 class PostList(ListView):
     model = Post 
-    # template_name = 'blog/index.html' # 지정안해줘도 같은이름의 post_list가 연결되어있으며, 지정해주고 싶을때만 사용.
-    # ordering = '-pk' 
+    # template_name = 'blog/index.html' # 지정안해줘도 같은이름의 post_list의 templeate와 model을 조합, 지정해주고 싶을때만 사용.
+    ordering = '-pk' # post_list 가 역순으로 정렬이 됨.
